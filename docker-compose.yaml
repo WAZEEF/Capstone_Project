@@ -1,0 +1,56 @@
+version: '3.7'
+services:
+  nginx-app:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./app:/usr/share/nginx/html
+    depends_on:
+      - prometheus
+    networks:
+      - monitoring
+
+  prometheus:
+    image: prom/prometheus:v2.46.0
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    networks:
+      - monitoring
+    depends_on:
+      - prometheus
+
+  node-exporter:
+    image: prom/node-exporter
+    ports:
+      - "9100:9100"
+    networks:
+      - monitoring    
+      
+ # alertmanager:
+ #   image: prom/alertmanager
+ #   volumes:
+ #     - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+ #   ports:
+ #     - "9093:9093"
+ #   networks:
+ #     - monitoring
+      
+
+networks:
+  monitoring:
+    driver: bridge
+
+volumes:
+  grafana-storage:

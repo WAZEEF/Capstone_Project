@@ -1,0 +1,11 @@
+groups:
+  - name: application_down
+    rules:
+      - alert: ApplicationDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Application is down"
+          description: "The application has been down for more than 1 minute."
