@@ -9,7 +9,7 @@ elif [ "$GIT_BRANCH" = "origin/main" ]; then
 	docker tag project wazeef/prod:prod
 	docker push wazeef/prod:prod
 else
-	echo "No branch detected !!"
+	echo "No branch detected !!!"
 
 fi
 
