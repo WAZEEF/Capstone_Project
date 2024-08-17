@@ -20,16 +20,16 @@ services:
     networks:
       - monitoring
 
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "3000:3000"
-    volumes:
-      - grafana-storage:/var/lib/grafana
-    networks:
-      - monitoring
-    depends_on:
-      - prometheus
+#  grafana:
+#   image: grafana/grafana
+#    ports:
+#      - "3000:3000"
+#    volumes:
+#      - grafana-storage:/var/lib/grafana
+#    networks:
+#      - monitoring
+#    depends_on:
+#      - prometheus
 
   node-exporter:
     image: prom/node-exporter
@@ -52,5 +52,5 @@ networks:
   monitoring:
     driver: bridge
 
-volumes:
-  grafana-storage:
+# volumes:
+#   grafana-storage:
